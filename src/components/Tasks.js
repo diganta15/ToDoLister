@@ -12,7 +12,7 @@ function Tasks() {
     const {tasks} = UseTasks(selectedProject);
     let projectName = '';
 
-    if (projects && selectedProject && !collatedTasksExists(selectedProject))
+    if (projects.length>0 && selectedProject && !collatedTasksExists(selectedProject))
     {
         projectName = getTitle(projects, selectedProject).name;
         console.log('projectName 1:',projectName);
@@ -27,7 +27,7 @@ function Tasks() {
         document.title = `${projectName}: Todoist`
     }, [])
 
-    console.log('tasks',tasks)
+   
     return (
         <div>
             <div className="tasks" data-testid="tasks">

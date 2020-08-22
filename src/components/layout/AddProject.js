@@ -28,14 +28,19 @@ function AddProject({shouldShow = false}) {
     return (
         <div className='add-projects' data-testid='add-project'>
             {show && (
-                <div className="add-project__input">
-                    <input value={projectName} type="text" className='add-project__name' data-testid='project-name' placeholder='Name Your Project' onChange={e => setProjectName(e.target.value)}/>
-                    <button className='add-project__submit' type='button' data-testid='add-project-submit'>Add Project</button>
-                    <span className="add-project__cancel" data-testid='hide-project-overlay'
+                <div className="add-projects__input">
+                    <input value={projectName} type="text" className='add-projects__name' data-testid='project-name' placeholder='Name Your Project' onChange={e => setProjectName(e.target.value)}/>
+                    <button className='add-projects__submit' type='button' data-testid='add-project-submit' onClick={()=> addProject()}>Add Project</button>
+                    <span className="add-projects__cancel" data-testid='hide-project-overlay'
                     onClick={() => setShow(false)}
                     >Cancel</span>
                 </div>
+               
             )}
+            <span className="add-project__plus">+ </span>
+            <span className="add-project__text" data-testid="add-project-action"
+                onClick={() => setShow(!show)}
+            >Add Project</span>
         </div>
     )
 }
