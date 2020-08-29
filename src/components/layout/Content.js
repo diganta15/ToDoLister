@@ -1,12 +1,12 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 import Tasks from '../Tasks'
-function Content() {
+function Content({userId}) {
     return (
         <div className="content">
             <section >
-            <Sidebar />
-            <Tasks />
+                <Sidebar userId={userId}/>
+                <Tasks userId={userId} />
             </section>
         </div>
     )

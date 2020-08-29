@@ -1,18 +1,18 @@
 import React from 'react';
 import firebase from 'firebase';
 
-function Checkbox({id}) {
+function Checkbox({ id }) {
 
-    const archiveTask = () =>   {
-        const archiveTask = () => {
-            firebase
+    const archiveTask = () => {
+
+        firebase
             .firestore()
             .collection('tasks')
             .doc(id)
             .update({
                 archived: true,
             })
-        }
+
     }
 
     return (

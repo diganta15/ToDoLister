@@ -6,7 +6,7 @@ import { UseSelectedProjectValue } from '../../context';
 import ProjectOverlay from './../ProjectOverlay';
 import TaskDate from './../TaskDate';
 
-function AddTask({ showAddTaskMain = true, showShouldMain = false, showQuickAddTask, setShowQuickAddTask }) {
+function AddTask({ userId, showAddTaskMain = true, showShouldMain = false, showQuickAddTask, setShowQuickAddTask }) {
 
     const [task, setTask] = useState('');
     const [taskDate, setTaskDate] = useState('');
@@ -16,7 +16,7 @@ function AddTask({ showAddTaskMain = true, showShouldMain = false, showQuickAddT
     const [showTaskDate, setShowTaskDate] = useState(false);
 
     const { selectedProject } = UseSelectedProjectValue();
-
+    
     const addTask = () => {
         const projectId = project || selectedProject;
         let collatedDate = '';
@@ -34,7 +34,7 @@ function AddTask({ showAddTaskMain = true, showShouldMain = false, showQuickAddT
                 projectId,
                 task,
                 date: collatedDate || taskDate,
-                userId: '23c3rrf',
+                userId: userId,
 
             })
             .then(() => {
@@ -79,7 +79,7 @@ function AddTask({ showAddTaskMain = true, showShouldMain = false, showQuickAddT
 
                         <input type="text" className="add-task__content"
                         data-testid='add-task-content' value={task} onChange={(e)=>setTask(e.target.value)} />
-                        <button className="add-task__submit" type='button' onClick={()=>addTask()}>
+                        <button className="add-task__submit" type='button' onClick={() => showQuickAddTask ? addTask() &&  setShowQuickAddTask(false) : addTask()}>
                             Add Task
                         </button>
                         {!showQuickAddTask && (

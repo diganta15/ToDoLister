@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { firebase } from '../firebase.js';
 import moment from 'moment';
-import { collatedTasksExists } from '../helpers/index.js'
+import { collatedTasksExists } from '../helpers/index.js';
+
+const userId = localStorage.getItem('userId')
 
 
 export const UseTasks = selectedProject => {
@@ -12,12 +14,12 @@ export const UseTasks = selectedProject => {
         let unsuscribe = firebase
             .firestore()
             .collection('tasks')
-            .where('userId', '==', '23c3rrf');
+            .where('userId', '==', userId);
 
         unsuscribe = selectedProject && !collatedTasksExists(selectedProject) ? (unsuscribe = unsuscribe.where('projectId', '==', selectedProject)) : selectedProject === 'TODAY'
             ? (unsuscribe = unsuscribe.where('date', '==', moment().format('DD/MM/YYYY')))
             : selectedProject === 'INBOX' || selectedProject === 0
-                ? (unsuscribe = unsuscribe.where('date', '==', ''))
+                ? (unsuscribe = unsuscribe.where(' date', '==', userId))
                 : unsuscribe;
 
         unsuscribe = unsuscribe.onSnapshot(snapshot => {
@@ -29,9 +31,9 @@ export const UseTasks = selectedProject => {
             setTasks(
                 selectedProject === 'NEXT_7'
                     ? newTasks.filter(
-                        task => moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 && task.archieve !== true
+                        task => moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 && task.archived !== true
                     )
-                    : newTasks.filter(task => task.archieve !== true)
+                    : newTasks.filter(task => task.archived !== true)
             );
             setArchivedTasks(newTasks.filter(task => task.archived !== false));
         })
@@ -48,7 +50,7 @@ export const useProjects = () => {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        firebase.firestore().collection('projects').where('userId', '==', '23c3rrf').orderBy('projectId').get().then(
+        firebase.firestore().collection('projects').where('userId', '==', userId).orderBy('projectId').get().then(
             snapshot => {
                 const allProjects = snapshot.docs.map(project => ({
                     ...project.data(),

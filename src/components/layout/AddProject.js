@@ -3,7 +3,7 @@ import {firebase, firebaseConfig} from '../../firebase';
 import {generatePushId} from '../../helpers';
 import {useProjectValue, useProjectsValue} from '../../context';
 
-function AddProject({shouldShow = false}) {
+function AddProject({userId ,shouldShow = false}) {
     const [show, setShow] = useState(shouldShow);
     const [projectName, setProjectName] = useState('');
 
@@ -16,7 +16,7 @@ function AddProject({shouldShow = false}) {
         .add({
             projectId,
             name: projectName,
-            userId: '23c3rrf',
+            userId: userId ,
         })
         .then(()=>{
             setProjects([]);

@@ -6,7 +6,8 @@ import {getTitle, getCollatedTitle, collatedTasksExists} from '../helpers';
 import { useProjectsValue, UseSelectedProjectValue } from '../context';
 import AddTask from './layout/AddTask';
 
-function Tasks() {
+
+function Tasks({userId}) {
     const {selectedProject} = UseSelectedProjectValue();
     const {projects} = useProjectsValue();
     const {tasks} = UseTasks(selectedProject);
@@ -41,7 +42,7 @@ function Tasks() {
                         </li>
                     ))}
                 </ul>
-                <AddTask />
+                <AddTask userId={userId} />
             </div>
         </div>
     )

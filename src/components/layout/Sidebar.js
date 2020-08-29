@@ -4,7 +4,7 @@ import { UseSelectedProject, UseSelectedProjectValue , setSelectedProject} from 
 import Projects from './Projects';
 import AddProject from './AddProject';
 
-function Sidebar() {
+function Sidebar({userId}) {
     const { setSelectedProject } = UseSelectedProjectValue();
     const [active, setActive] = useState('inbox');
     const [showProjects, setShowProjects] = useState(true);
@@ -40,9 +40,9 @@ function Sidebar() {
                     <h2>Projects</h2>
                 </div> 
                 <ul className="sidebar__projects">
-                    {showProjects && <Projects />}
+                    {showProjects && <Projects userId={userId} />}
                 </ul>
-                {showProjects && <AddProject />}
+                {showProjects && <AddProject userId={userId} />}
             </div>
         </div>
     )
